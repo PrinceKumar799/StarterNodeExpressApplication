@@ -9,5 +9,6 @@ app.listen(3000, () => {
   console.log(os.networkInterfaces());
   console.log(os.uptime() / 3600);
   console.log(os.freemem());
+  console.log(os.homedir());
   console.log("====================================");
 });
