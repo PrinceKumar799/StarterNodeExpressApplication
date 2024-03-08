@@ -1,6 +1,7 @@
 const userModel = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const roles = require("../config/roles");
 
 const generateAcessTokens = (user) => {
   return jwt.sign(user, process.env.ACCESS_TOKEN_KEY, {
@@ -9,12 +10,16 @@ const generateAcessTokens = (user) => {
 };
 
 const loginController = async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const email = req?.body?.email;
+  const password = req?.body?.password;
+  if (!email || !password) res.sendStatus(400);
   const user = await userModel.findOne({ email: email });
+  if (!user) return res.sendStatus(400);
   const payload = {
-    email: user.email,
-    password: user.password,
+    userInfo: {
+      email,
+      roles: user.roles,
+    },
   };
   //console.log(typeof user);
   //console.log(user.email, user.password);

@@ -16,7 +16,7 @@ const passwordUpdateController = (req, res) => {
           }
         )
         .catch((err) => console.log(err));
-      res.status(200).send({ msg: "password" });
+      res.status(200).send({ msg: "password updated" });
     }
   });
 };
